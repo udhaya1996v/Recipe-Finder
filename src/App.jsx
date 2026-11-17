@@ -343,11 +343,11 @@ function handleFavorite(recipe)
   let completed = false;
 
   async function fetchRecipeAreas() {
-    const missingRecipes = currentRecipes.filter(
-      (recipe) =>
-        !recipe.strArea &&
-        !fetchedAreaIds.current.has(recipe.idMeal)
-    );
+   const missingRecipes = currentRecipes.filter(
+  (recipe) =>
+    (!recipe.strArea || !recipe.strCategory) &&
+    !fetchedAreaIds.current.has(recipe.idMeal)
+);
 
     if (missingRecipes.length === 0) return;
 
@@ -645,19 +645,29 @@ function handleFavorite(recipe)
                 {error}
               </p>
             )}
+            
 
             
           
 {/* Recipe Cards */}
 
+
+{!loading && recipes.length > 0 && (
+  <p className="text-center font-bold text-gray-700 mt-4">
+    Total Recipes: {recipes.length}
+  </p>
+)}
 <div
   ref={recipesRef}
   className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6"
 >
+
+  
   {currentRecipes.map((recipe) => {
     const isFavorite = favorites.some(
       (item) => item.idMeal === recipe.idMeal
     );
+    
 
     return (
      <div
@@ -682,34 +692,40 @@ function handleFavorite(recipe)
     <div className="cursor-default select-text">
 
   <p className="text-orange-600 text-sm font-semibold mt-2">
-  Category: {
-    recipe.strCategory ||
-    ({
-      mutton: "Lamb",
-      lamb: "Lamb",
-      pasta: "Pasta"
-    }[search.trim().toLowerCase()]) ||
-    "Not available"
-  }
-</p>
-{recipe.strArea && recipe.strArea !== "null" && (
-  <p className="text-sm text-orange-600 mt-2 font-semibold">
-    Country: {recipe.strArea}
+  {selectedCategory && (
+  <p className="text-orange-600 text-sm font-semibold  mt-2">
+    Category: {
+      recipe.strCategory ||
+      ({
+        mutton: "Lamb",
+        lamb: "Lamb",
+        pasta: "Pasta"
+      }[search.trim().toLowerCase()]) ||
+      "Not available"
+    }
   </p>
 )}
+</p>
+
+  {selectedArea && (
+    <p className="text-orange-600 text-sm font-semibold mt-2">
+      Country: {selectedArea}
+    </p>
+  )}
+
   {search.trim() && (
-    <p className="text-orange-600 text-sm mt-2">
+    <p className="text-orange-600 text-sm font-semibold mt-2">
       Search: {search}
     </p>
   )}
 
   {ingredient.trim() && (
-    <p className="text-orange-600 text-sm mt-2">
+    <p className="text-orange-600 text-sm font-semibold  mt-2">
       Ingredient: {ingredient}
     </p>
   )}
-          </div>
 
+</div>
         <div className="flex flex-col gap-2 mt-3">
           <button
            
