@@ -1,0 +1,41 @@
+
+@import "tailwindcss";
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: #fffaf5;
+  color: #292524;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Form controls */
+input,
+select,
+button {
+  font: inherit;
+}
+
+/* Selection */
+::selection {
+  background: #fed7aa;
+  color: #7c2d12;
+}
+
+/* Recipe card image */
+.recipe-image {
+  transition: transform 0.4s ease;
+}
+
+.recipe-image:hover {
+  transform: scale(1.04);
+}
